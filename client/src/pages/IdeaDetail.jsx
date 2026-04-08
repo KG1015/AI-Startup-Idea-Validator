@@ -11,7 +11,8 @@ const IdeaDetail = () => {
   useEffect(() => {
     const fetchIdea = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/ideas/${id}`);
+        const baseUrl = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+        const response = await axios.get(`${baseUrl}/api/ideas/${id}`);
         setIdea(response.data);
       } catch (error) {
         console.error(error);

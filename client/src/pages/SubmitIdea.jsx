@@ -19,7 +19,8 @@ const SubmitIdea = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/ideas`, {
+      const baseUrl = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+      const response = await axios.post(`${baseUrl}/api/ideas`, {
         title,
         description,
       });
