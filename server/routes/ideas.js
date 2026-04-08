@@ -24,7 +24,10 @@ router.post('/', async (req, res) => {
     res.status(201).json(savedIdea);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Server error analyzing or saving idea' });
+    const message = error.message === "The free AI model is currently overloaded. Please try again in a few seconds." 
+      ? error.message 
+      : 'Server error analyzing or saving idea';
+    res.status(error.message.includes('overloaded') ? 429 : 500).json({ error: message });
   }
 });
 

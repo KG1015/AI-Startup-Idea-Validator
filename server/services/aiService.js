@@ -56,6 +56,9 @@ Respond ONLY with valid JSON strictly matching the following schema. Do not incl
     return JSON.parse(cleanContent);
   } catch (error) {
     console.error("Error analyzing idea with OpenAI:", error);
+    if (error.status === 429) {
+      throw new Error("The free AI model is currently overloaded. Please try again in a few seconds.");
+    }
     throw new Error("Failed to generate AI analysis");
   }
 };

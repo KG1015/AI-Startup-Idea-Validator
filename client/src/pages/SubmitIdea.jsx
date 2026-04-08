@@ -25,8 +25,22 @@ const SubmitIdea = () => {
       });
       navigate(`/idea/${response.data._id}`);
     } catch (err) {
-      console.error(err);
-      setError('Failed to analyze the idea. Ensure backend is running.');
+      console.error('Axios error detail:', err);
+      if (err.response) {
+        console.error('Data:', err.response.data);
+        console.error('Status:', err.response.status);
+      } else if (err.request) {
+        console.error('Request formed but no response received:', err.request);
+      } else {
+        console.error('Error setting up request:', err.message);
+      }
+      let errorMessage = 'Failed to analyze the idea. Ensure backend is running.';
+      if (err.response && err.response.data && err.response.data.error) {
+        errorMessage = err.response.data.error;
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
