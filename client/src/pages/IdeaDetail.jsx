@@ -38,19 +38,19 @@ const IdeaDetail = () => {
   const { analysis } = idea;
 
   const getRiskStyle = (risk) => {
-    if (risk === 'High') return { bg: 'rgba(255,77,109,0.12)', border: 'rgba(255,77,109,0.35)', color: '#ff4d6d' };
-    if (risk === 'Medium') return { bg: 'rgba(251,191,36,0.12)', border: 'rgba(251,191,36,0.35)', color: '#fbbf24' };
-    return { bg: 'rgba(6,214,160,0.12)', border: 'rgba(6,214,160,0.35)', color: '#06d6a0' };
+    if (risk === 'High') return { bg: 'rgba(229,72,77,0.12)', border: 'rgba(229,72,77,0.35)', color: '#d92d20' };
+    if (risk === 'Medium') return { bg: 'rgba(245,158,11,0.12)', border: 'rgba(245,158,11,0.3)', color: '#b45309' };
+    return { bg: 'rgba(14,165,114,0.12)', border: 'rgba(14,165,114,0.3)', color: '#047857' };
   };
 
-  const getScoreColor = (score) => {
-    if (score >= 70) return '#06d6a0';
-    if (score >= 40) return '#fbbf24';
-    return '#ff4d6d';
+  const getScoreStyle = (score) => {
+    if (score >= 70) return { bg: 'rgba(14,165,114,0.12)', border: 'rgba(14,165,114,0.3)', color: '#047857' };
+    if (score >= 40) return { bg: 'rgba(245,158,11,0.12)', border: 'rgba(245,158,11,0.3)', color: '#b45309' };
+    return { bg: 'rgba(229,72,77,0.12)', border: 'rgba(229,72,77,0.35)', color: '#d92d20' };
   };
 
   const risk = getRiskStyle(analysis.riskLevel);
-  const scoreColor = getScoreColor(analysis.profitabilityScore);
+  const scoreStyle = getScoreStyle(analysis.profitabilityScore);
 
   const SectionCard = ({ icon: Icon, iconColor = '#9d5cff', title, children, fullWidth = false }) => (
     <div className="card" style={fullWidth ? { gridColumn: '1 / -1' } : {}}>
@@ -91,7 +91,7 @@ const IdeaDetail = () => {
         <h1 style={{
           fontSize: 'clamp(1.6rem, 4vw, 2.2rem)', fontWeight: 800,
           margin: '0 0 0.6rem', letterSpacing: '-0.03em',
-          background: 'linear-gradient(135deg, #f0f0ff 0%, #9d5cff 100%)',
+          background: 'linear-gradient(125deg, #1c1c1e 0%, #5b5bd6 50%, #9333ea 100%)',
           WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
         }}>
           {idea.title}
@@ -105,11 +105,11 @@ const IdeaDetail = () => {
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
             padding: '0.4rem 0.9rem', borderRadius: '99px',
-            background: `rgba(${scoreColor === '#06d6a0' ? '6,214,160' : scoreColor === '#fbbf24' ? '251,191,36' : '255,77,109'},0.12)`,
-            border: `1px solid rgba(${scoreColor === '#06d6a0' ? '6,214,160' : scoreColor === '#fbbf24' ? '251,191,36' : '255,77,109'},0.35)`,
+            background: scoreStyle.bg,
+            border: `1px solid ${scoreStyle.border}`,
           }}>
-            <TrendingUp size={14} color={scoreColor} />
-            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: scoreColor }}>
+            <TrendingUp size={14} color={scoreStyle.color} />
+            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: scoreStyle.color }}>
               Score: {analysis.profitabilityScore}/100
             </span>
           </div>
