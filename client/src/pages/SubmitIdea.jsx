@@ -140,10 +140,7 @@ const SubmitIdea = () => {
         </form>
       </div>
 
-      {/* Bottom hint */}
-      <p className="text-center text-muted" style={{ fontSize: '0.8rem', marginTop: '1.25rem', opacity: 0.6 }}>
-        Powered by OpenRouter · Results saved to your dashboard
-      </p>
+
 
       <style>{`
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
